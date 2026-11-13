@@ -1,0 +1,12 @@
+* text=auto eol=lf
+/target export-ignore
+/backups export-ignore
+/captures export-ignore
+/exports export-ignore
+/logs export-ignore
+/packs/bmw-* export-ignore
+*.sqlite* export-ignore
+*.zst export-ignore
+*.cod export-ignore
+*.md export-ignore
+/README.md -export-ignore
