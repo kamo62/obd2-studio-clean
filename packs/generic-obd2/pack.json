@@ -1,0 +1,600 @@
+{
+  "schema": 1,
+  "id": "generic-obd2",
+  "name": "Generic OBD-II",
+  "scope": "generic",
+  "version": "1.0.0",
+  "license": "CC0-1.0",
+  "description": "Standard Mode 01, 03, 04, 07, 09 and 0A data for OBD-II compliant vehicles.",
+  "sources": [
+    "SAE J1979 / ISO 15031-5: diagnostic test modes",
+    "SAE J2012 / ISO 15031-6: diagnostic trouble code format",
+    "ISO 15765-4: diagnostics on CAN"
+  ],
+  "pids": [
+    {
+      "pid": 0,
+      "name": "PIDs supported 01-20",
+      "bytes": 4,
+      "decode": "bitmask",
+      "category": "status"
+    },
+    {
+      "pid": 1,
+      "name": "Monitor status since DTCs cleared",
+      "bytes": 4,
+      "decode": "bitmask",
+      "category": "status"
+    },
+    {
+      "pid": 3,
+      "name": "Fuel system status",
+      "bytes": 2,
+      "decode": "enum",
+      "category": "fuel",
+      "values": {
+        "1": "Open loop: engine cold",
+        "2": "Closed loop: oxygen sensor feedback",
+        "4": "Open loop: engine load",
+        "8": "Open loop: system failure",
+        "16": "Closed loop: oxygen sensor feedback, fault in feedback system"
+      }
+    },
+    {
+      "pid": 4,
+      "name": "Calculated engine load",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "engine"
+    },
+    {
+      "pid": 5,
+      "name": "Engine coolant temperature",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A-40",
+      "unit": "°C",
+      "category": "engine"
+    },
+    {
+      "pid": 6,
+      "name": "Short term fuel trim bank 1",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "(A-128)*100/128",
+      "unit": "%",
+      "category": "fuel"
+    },
+    {
+      "pid": 7,
+      "name": "Long term fuel trim bank 1",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "(A-128)*100/128",
+      "unit": "%",
+      "category": "fuel"
+    },
+    {
+      "pid": 8,
+      "name": "Short term fuel trim bank 2",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "(A-128)*100/128",
+      "unit": "%",
+      "category": "fuel"
+    },
+    {
+      "pid": 9,
+      "name": "Long term fuel trim bank 2",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "(A-128)*100/128",
+      "unit": "%",
+      "category": "fuel"
+    },
+    {
+      "pid": 10,
+      "name": "Fuel pressure",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A*3",
+      "unit": "kPa",
+      "category": "fuel"
+    },
+    {
+      "pid": 11,
+      "name": "Intake manifold absolute pressure",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A",
+      "unit": "kPa",
+      "category": "engine"
+    },
+    {
+      "pid": 12,
+      "name": "Engine speed",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "(A*256+B)/4",
+      "unit": "rpm",
+      "category": "engine"
+    },
+    {
+      "pid": 13,
+      "name": "Vehicle speed",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A",
+      "unit": "km/h",
+      "category": "vehicle"
+    },
+    {
+      "pid": 14,
+      "name": "Timing advance",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A/2-64",
+      "unit": "°",
+      "category": "engine"
+    },
+    {
+      "pid": 15,
+      "name": "Intake air temperature",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A-40",
+      "unit": "°C",
+      "category": "engine"
+    },
+    {
+      "pid": 16,
+      "name": "MAF air flow rate",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "(A*256+B)/100",
+      "unit": "g/s",
+      "category": "engine"
+    },
+    {
+      "pid": 17,
+      "name": "Throttle position",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "engine"
+    },
+    {
+      "pid": 19,
+      "name": "Oxygen sensors present (2 banks)",
+      "bytes": 1,
+      "decode": "bitmask",
+      "category": "emissions"
+    },
+    {
+      "pid": 20,
+      "name": "O2 sensor 1 (bank 1)",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "A/200",
+      "note": "B is the short-term fuel trim for this sensor.",
+      "unit": "V",
+      "category": "emissions"
+    },
+    {
+      "pid": 21,
+      "name": "O2 sensor 2 (bank 1)",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "A/200",
+      "note": "B is the short-term fuel trim for this sensor.",
+      "unit": "V",
+      "category": "emissions"
+    },
+    {
+      "pid": 22,
+      "name": "O2 sensor 3 (bank 1)",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "A/200",
+      "note": "B is the short-term fuel trim for this sensor.",
+      "unit": "V",
+      "category": "emissions"
+    },
+    {
+      "pid": 23,
+      "name": "O2 sensor 4 (bank 1)",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "A/200",
+      "note": "B is the short-term fuel trim for this sensor.",
+      "unit": "V",
+      "category": "emissions"
+    },
+    {
+      "pid": 28,
+      "name": "OBD standards this vehicle conforms to",
+      "bytes": 1,
+      "decode": "enum",
+      "category": "status",
+      "values": {
+        "1": "OBD-II (CARB)",
+        "2": "OBD-II (EPA)",
+        "3": "OBD and OBD-II",
+        "4": "OBD-I",
+        "5": "Not OBD compliant",
+        "6": "EOBD",
+        "7": "EOBD and OBD-II",
+        "8": "EOBD and OBD",
+        "9": "EOBD, OBD and OBD-II",
+        "10": "EOBD and OBD (Brazil)",
+        "11": "OBD and OBD-II",
+        "12": "OBD-II and EOBD",
+        "13": "OBD-II"
+      }
+    },
+    {
+      "pid": 31,
+      "name": "Run time since engine start",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "A*256+B",
+      "unit": "s",
+      "category": "status"
+    },
+    {
+      "pid": 33,
+      "name": "Distance traveled with MIL on",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "A*256+B",
+      "unit": "km",
+      "category": "status"
+    },
+    {
+      "pid": 34,
+      "name": "Fuel rail pressure (relative to manifold vacuum)",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "(A*256+B)*0.079",
+      "unit": "kPa",
+      "category": "fuel"
+    },
+    {
+      "pid": 35,
+      "name": "Fuel rail gauge pressure",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "(A*256+B)*10",
+      "unit": "kPa",
+      "category": "fuel"
+    },
+    {
+      "pid": 44,
+      "name": "Commanded EGR",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "emissions"
+    },
+    {
+      "pid": 45,
+      "name": "EGR error",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "(A-128)*100/128",
+      "unit": "%",
+      "category": "emissions"
+    },
+    {
+      "pid": 46,
+      "name": "Commanded evaporative purge",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "emissions"
+    },
+    {
+      "pid": 47,
+      "name": "Fuel tank level input",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "fuel"
+    },
+    {
+      "pid": 48,
+      "name": "Warm-ups since codes cleared",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A",
+      "category": "status"
+    },
+    {
+      "pid": 49,
+      "name": "Distance traveled since codes cleared",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "A*256+B",
+      "unit": "km",
+      "category": "status"
+    },
+    {
+      "pid": 50,
+      "name": "Evaporative system vapor pressure",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "signed(A*256+B)/4",
+      "unit": "Pa",
+      "category": "emissions"
+    },
+    {
+      "pid": 51,
+      "name": "Absolute barometric pressure",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A",
+      "unit": "kPa",
+      "category": "engine"
+    },
+    {
+      "pid": 60,
+      "name": "Catalyst temperature bank 1 sensor 1",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "(A*256+B)/10-40",
+      "unit": "°C",
+      "category": "emissions"
+    },
+    {
+      "pid": 61,
+      "name": "Catalyst temperature bank 2 sensor 1",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "(A*256+B)/10-40",
+      "unit": "°C",
+      "category": "emissions"
+    },
+    {
+      "pid": 62,
+      "name": "Catalyst temperature bank 1 sensor 2",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "(A*256+B)/10-40",
+      "unit": "°C",
+      "category": "emissions"
+    },
+    {
+      "pid": 63,
+      "name": "Catalyst temperature bank 2 sensor 2",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "(A*256+B)/10-40",
+      "unit": "°C",
+      "category": "emissions"
+    },
+    {
+      "pid": 66,
+      "name": "Control module voltage",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "(A*256+B)/1000",
+      "unit": "V",
+      "category": "electrical"
+    },
+    {
+      "pid": 67,
+      "name": "Absolute load value",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "(A*256+B)*100/255",
+      "unit": "%",
+      "category": "engine"
+    },
+    {
+      "pid": 68,
+      "name": "Command equivalence ratio",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "(A*256+B)/32768",
+      "category": "fuel"
+    },
+    {
+      "pid": 69,
+      "name": "Relative throttle position",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "engine"
+    },
+    {
+      "pid": 70,
+      "name": "Ambient air temperature",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A-40",
+      "unit": "°C",
+      "category": "environment"
+    },
+    {
+      "pid": 71,
+      "name": "Absolute throttle position B",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "engine"
+    },
+    {
+      "pid": 72,
+      "name": "Absolute throttle position C",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "engine"
+    },
+    {
+      "pid": 73,
+      "name": "Accelerator pedal position D",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "engine"
+    },
+    {
+      "pid": 74,
+      "name": "Accelerator pedal position E",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "engine"
+    },
+    {
+      "pid": 75,
+      "name": "Accelerator pedal position F",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "engine"
+    },
+    {
+      "pid": 76,
+      "name": "Commanded throttle actuator",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "engine"
+    },
+    {
+      "pid": 77,
+      "name": "Time run with MIL on",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "A*256+B",
+      "unit": "min",
+      "category": "status"
+    },
+    {
+      "pid": 78,
+      "name": "Time since trouble codes cleared",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "A*256+B",
+      "unit": "min",
+      "category": "status"
+    },
+    {
+      "pid": 81,
+      "name": "Fuel type",
+      "bytes": 1,
+      "decode": "enum",
+      "category": "fuel",
+      "values": {
+        "1": "Gasoline",
+        "2": "Methanol",
+        "3": "Ethanol",
+        "4": "Diesel",
+        "5": "LPG",
+        "6": "CNG",
+        "7": "Propane",
+        "8": "Electric",
+        "9": "Bifuel: gasoline",
+        "10": "Bifuel: methanol",
+        "11": "Bifuel: ethanol",
+        "12": "Bifuel: LPG",
+        "13": "Bifuel: CNG",
+        "14": "Bifuel: propane",
+        "15": "Bifuel: electric",
+        "17": "Hybrid: gasoline",
+        "18": "Hybrid: ethanol",
+        "19": "Hybrid: diesel",
+        "20": "Hybrid: electric",
+        "21": "Hybrid: electric and gasoline",
+        "22": "Hybrid: electric and diesel",
+        "23": "Hybrid: electric and ethanol",
+        "24": "Hybrid: electric and LPG",
+        "25": "Hybrid: electric and CNG",
+        "26": "Hybrid: electric and propane"
+      }
+    },
+    {
+      "pid": 82,
+      "name": "Ethanol fuel percentage",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A*100/255",
+      "unit": "%",
+      "category": "fuel"
+    },
+    {
+      "pid": 92,
+      "name": "Engine oil temperature",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A-40",
+      "unit": "°C",
+      "category": "engine"
+    },
+    {
+      "pid": 94,
+      "name": "Engine fuel rate",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "(A*256+B)/20",
+      "unit": "L/h",
+      "category": "fuel"
+    },
+    {
+      "pid": 98,
+      "name": "Actual engine torque",
+      "bytes": 1,
+      "decode": "numeric",
+      "formula": "A-125",
+      "unit": "%",
+      "category": "engine"
+    },
+    {
+      "pid": 99,
+      "name": "Engine reference torque",
+      "bytes": 2,
+      "decode": "numeric",
+      "formula": "A*256+B",
+      "unit": "Nm",
+      "category": "engine"
+    }
+  ],
+  "dtc_systems": [
+    {
+      "letter": "B",
+      "name": "Body",
+      "scope": "Airbags, climate, lighting, comfort"
+    },
+    {
+      "letter": "C",
+      "name": "Chassis",
+      "scope": "ABS, stability, suspension, steering"
+    },
+    {
+      "letter": "P",
+      "name": "Powertrain",
+      "scope": "Engine, transmission, fuel, emissions"
+    },
+    {
+      "letter": "U",
+      "name": "Network",
+      "scope": "CAN, module communication"
+    }
+  ],
+  "dtc_descriptions": {}
+}

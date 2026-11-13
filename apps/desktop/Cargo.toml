@@ -1,0 +1,10 @@
+[package]
+name = "obd2-desktop"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Desktop workspace for OBD-II diagnostics and vehicle packs"
+
+[dependencies]
+gpui = { version = "0.2.2", features = ["runtime_shaders"] }
+obd2-core = { path = "../../crates/obd2-core" }
